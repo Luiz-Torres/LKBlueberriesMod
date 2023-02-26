@@ -2,15 +2,16 @@ package net.lukkung.blueberries;
 
 import com.mojang.logging.LogUtils;
 import net.lukkung.blueberries.item.modItems;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.event.CreativeModeTabEvent;
+import net.lukkung.blueberries.item.modCreativeModeTab;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -32,9 +33,10 @@ public class Blueberries
         modEventBus.addListener(this::commonSetup);
 
         // Register ourselves for server and other game events we are interested in
-        //MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(this);
 
         modEventBus.addListener(this::addCreative);
+
 
     }
 
@@ -49,7 +51,7 @@ public class Blueberries
 
     private void addCreative(CreativeModeTabEvent.BuildContents event)
     {
-        if (event.getTab() == CreativeModeTabs.FOOD_AND_DRINKS)
+        if (event.getTab() == modCreativeModeTab.LK_BLUEBERRIES_TAB)
             event.accept(modItems.BLUEBERRIES);
     }
 
